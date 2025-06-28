@@ -57,10 +57,10 @@
             <div class="col-2 custom-sidebar">
                 <div class="nav flex-column">
 
-                    <a href="../Inventario/dash.php?user=1" class="nav-link"><i class="bi bi-box-seam"></i>Estudiantes</a>
-                    <a href="../Pedidos/dash.php?user=1" class="nav-link"><i class="bi bi-truck"></i>Matricula</a>
-                    <a href="../Proveedores/dash.php?user=1" class="nav-link"><i class="bi bi-globe"></i>Aulas</a>
-                    <a href="dash.php?user=1" class="nav-link active"><i class="bi bi-clipboard-data"></i> Reportes</a>
+                    <a href="../Inventario/dash.php?user=1" class="nav-link"><i class="bi bi-box-seam"></i> Estudiantes</a>
+                    <a href="registro.php" class="nav-link active"><i class="bi bi-truck"></i> Matricula</a>
+                    <a href="../Proveedores/dash.php?user=1" class="nav-link"><i class="bi bi-globe"></i> Aulas</a>
+                    <a href="dash.php?user=1" class="nav-link"><i class="bi bi-clipboard-data"></i> Reportes</a>
                     <a href="../Configuracion/dash.php?user=1" class="nav-link"><i class="bi bi-gear"></i> Configuración</a>
                 </div>
             </div>
@@ -145,39 +145,101 @@
                 </form>
 
                 <!-- Tabla de Matrículas -->
-                <div class="row mt-4">
-                    <div class="col" data-simplebar style="max-height: 420px;">
-                        <table class="table table-striped" id="matricula-table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Alumno</th>
-                                    <th scope="col">Sección</th>
-                                    <th scope="col">Periodo Inicio</th>
-                                    <th scope="col">Periodo Fin</th>
-                                    <th scope="col">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Ejemplo fila -->
-                                <?php
-                                foreach ($vec3 as $m) {
-                                ?>
+                <form action="../Reportes/generar_pdf.php" method="POST">
+                    <div class="row mt-4">
+                        <div class="col" data-simplebar style="max-height: 420px;">
+                            <table class="table table-hover" id="matricula-table">
+                                <thead>
                                     <tr>
-                                        <td><?= $m[0] ?></td>
-                                        <td><?= $m[1] ?></td>
-                                        <td><?= $m[2] ?></td>
-                                        <td><?= $m[3] ?></td>
-                                        <td><?= $m[4] ?></td>
-                                    <?php
-                                }
-                                    ?>
+                                        <th scope="col">Alumno</th>
+                                        <th scope="col">Sección</th>
+                                        <th scope="col">Periodo Inicio</th>
+                                        <th scope="col">Periodo Fin</th>
+                                        <th scope="col">Estado</th>
+                                        <!--<th scope="col">Editar</th>-->
+                                        <th scope="col">Eliminar</th>
                                     </tr>
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <!-- Ejemplo fila -->
+                                    <?php
+                                    foreach ($vec3 as $m) {
+                                    ?>
+                                        <tr>
+                                            <td><?= $m[1] ?></td>
+                                            <td><?= $m[2] ?></td>
+                                            <td><?= $m[3] ?></td>
+                                            <td><?= $m[4] ?></td>
+                                            <td><?= $m[5] ?></td>
+                                            <!--<td><a href="#"><img style="width: 25px; height: 25px;" src="../../src/images/edit.png" alt="Logo Editar" class="logo-img"></a></td>-->
+                                            <td><a href="../Configuracion/controller.php?action=delete&MatriculaID=<?= $m[0] ?>"><img style="width: 25px; height: 25px;" src="../../src/images/Eliminar.png" alt="Logo Eliminar" class="logo-img"></a></td>
+                                        <?php
+                                    }
+                                        ?>
+                                        </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
+                    <div class="row mt-5">
+                        <div class="d-flex justify-content-center">
+                            <td><button id="generarReporte" name="generarReporte" class="btn btn-success w-25 ">Generar reporte</button></td>
+                        </div>
+                    </div>
+                </form>
             </div>
 
+        </div>
+    </div>
+
+
+    <!--Contenedor Modal para editar matriculas-->
+    <div class="modal fade" id="modelo">
+        <div class="modal-header">
+            <h2 class="modal-title">Actualizar Matricula</h2>
+            <form action="control/input.php" method="post">
+                <label for="alumnoID-edit" class="form-label">Alumno</label>
+                <select class="form-select w-25" id="alumnoID-edit" name="alumnoID-edit" required>
+                    <?php
+                    foreach ($vec as $d) {
+                    ?>
+                        <option id="AlumnoID-edit" name="AlumnoID-edit" value="<?= $d[0] ?>"><?= $d[1] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <br>
+                <label for="seccionID-edit" class="form-label">Sección</label>
+                <select class="form-select w-25" id="seccionID-edit" name="seccionID-edit" required>
+                    <option selected disabled>Seleccione una sección</option>
+                    <!-- Opciones dinámicas -->
+                    <?php
+                    foreach ($vec2 as $s) {
+                    ?>
+                        <option id="SeccionID-Edit" name="SeccionID-Edit" value="<?= $s[0] ?>"><?= $s[1] ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <br>
+                <label for="Periodo-Inicio-Edit" class="form-label">Periodo Inicio:</label>
+                <input class="form-select w-25" type="date" id="Periodo-Inicio-Edit" name="Periodo-Inicio-Edit" required>
+                <br>
+                <label for="Periodo-Fin-Edit" class="form-label">Periodo Fin:</label>
+                <input class="form-select w-25" type="date" id="Periodo-Fin-Edit" name="Periodo-Fin-Edit" required>
+                <br>
+                <label for="estado-edit" class="form-label">Estado</label>
+                <select class="form-select w-25" id="estado-edit" name="estado-edit" required>
+                    <option value="Activo">Activo</option>
+                    <option value="Retirado">Retirado</option>
+                    <option value="Suspendido">Suspendido</option>
+                </select>
+                <center>
+                    <div class="boton-cerrar">
+                        <button class="btn btn-primary" id="boton-guardar" name="boton-guardar">Guardar</button>
+                    </div>
+                </center>
+            </form>
         </div>
     </div>
 

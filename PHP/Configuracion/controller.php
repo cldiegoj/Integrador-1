@@ -12,19 +12,19 @@ if (isset($_POST["guardarMatricula"])) {
 }
 
 //Boton Eliminar
-/*
-if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['id_alumno'])) {
-    $id_alumno = $_GET['id_alumno'];
+if (isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['MatriculaID'])) {
+    $MatriculaID = $_GET['MatriculaID'];
     $negocio = new Negocio();
-    $resultado = $negocio->eliminarAlu($id_alumno);
+    $resultado = $negocio->deleteMatri($MatriculaID);
 
     if (!$resultado) {
     } else {
-        header("location: ../dashboard.php");
+        header("location: ../Matricula/registro.php");
     }
 }
 
 //Boton Editar
+/*
 if (isset($_POST["botoneditar"])) {
     $objeto = new Negocio();
     $id_alumno = $_POST["id_alumno"];
@@ -36,7 +36,7 @@ if (isset($_POST["botoneditar"])) {
     $mate = $_POST["matematica"];
     $edad = $_POST["edad"];
 
-    $edit = $objeto->editarAlu($id_alumno, $dni, $nombre, $apellido, $aula, $lenguaje, $mate, $edad);
+    $edit = $objeto->editMatri($id_alumno, $dni, $nombre, $apellido, $aula, $lenguaje, $mate, $edad);
     if (!$edit) {
     } else {
         header("location: ../dashboard.php");

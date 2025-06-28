@@ -29,7 +29,7 @@ class Negocio
     }
 
     function lisMatri(){
-        $sql = "select a.nombres, s.nombre_seccion, Periodo_Inicio, Periodo_Fin, Estado FROM matriculas m JOIN alumnos a ON m.AlumnoID = a.AlumnoID JOIN secciones s ON m.SeccionID = s.SeccionID";
+        $sql = "select MatriculaID, a.nombres, s.nombre_seccion, Periodo_Inicio, Periodo_Fin, Estado FROM matriculas m JOIN alumnos a ON m.AlumnoID = a.AlumnoID JOIN secciones s ON m.SeccionID = s.SeccionID";
         $obj = new Conexion();
         $res = mysqli_query($obj->conecta(), $sql) or
             die(mysqli_error($obj->conecta()));
@@ -43,6 +43,15 @@ class Negocio
 
     function addMatri($AlumnoID,$SeccionID,$Periodo_Inicio,$Periodo_Fin,$Estado){
         $sql = "insert into `matriculas`(`AlumnoID`, `SeccionID`, `Periodo_Inicio`, `Periodo_Fin`, `Estado`) VALUES ($AlumnoID,$SeccionID,'$Periodo_Inicio','$Periodo_Fin','$Estado')";
+        $obj = new Conexion();
+        $conn = $obj->conecta();
+        $res = mysqli_query($conn, $sql);
+
+        return $res;
+    }
+
+    function deleteMatri($MatriculaID){
+        $sql = "delete from matriculas where MatriculaID = $MatriculaID";
         $obj = new Conexion();
         $conn = $obj->conecta();
         $res = mysqli_query($conn, $sql);
