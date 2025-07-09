@@ -1,0 +1,23 @@
+Sprint 1 (Completo)
+
+Interfaz del sistema + Registro de estudiantes             Cesar F 
+Busqueda de estudiantes                                    Adriel S
+Edición de datos de estudiantes                            Aaron G
+
+Sprint 2 (Completo)
+
+Registro de matrículas                                     Diego C
+Generación de reportes de matrícula                        Adriel S
+Consulta de cupos por aula                                 Aaron G
+
+Sprint 3 (En curso)
+
+Consulta de estado de matrícula                            Aaron G
+Registro de docentes                                       Diego C
+Implementación + Manual de usuario                         Cesar F
+
+Sprint 4 (Pendiente)
+
+Registro de observaciones del niño                         Adriel S
+Lista de asistencia diaria                                 Diego C
+Ajustes pedagógicos complementarios                        Cesar F
